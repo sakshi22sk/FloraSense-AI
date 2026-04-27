@@ -3,11 +3,17 @@ import numpy as np
 from tensorflow.keras.models import load_model
 from tensorflow.keras.preprocessing import image
 import os
+import gdown
 
 app = Flask(__name__)
 
 # Load model
-model = load_model("model.h5")
+MODEL_PATH = "model.h5"
+
+if not os.path.exists(MODEL_PATH):
+    gdown.download("https://drive.google.com/uc?id=18tRjWSs6CSm_IfoF9ipA-Evf5saajxWi", MODEL_PATH, quiet=False)
+
+model = load_model(MODEL_PATH)
 
 # Class labels (IMPORTANT: same order as training)
 class_names = ['daisy','dandelion','rose','sunflower','tulip']
